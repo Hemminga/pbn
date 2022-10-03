@@ -1,16 +1,9 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import model
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    pbn = input("Give a PBN string: ")
+    # DEBUG
+    if pbn == '':
+       pbn = "N:Q974.KJ.QJ43.QJ8 J82.AQT4.875.K64 AT65.8532.962.A7 K3.976.AKT.T9532"
+    data = model.process_pbn_input(pbn)
