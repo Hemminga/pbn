@@ -1,16 +1,25 @@
 import string
+import types
 from pprint import pprint
 
 
 def process_pbn_input(pbn: string):
+    base = types.SimpleNamespace()  # Object
     dealer_raw, hand_raw = process_raw_input(pbn)
+    base.dealer_raw = dealer_raw
+    base.pbn = pbn
+    base.hand_raw = hand_raw
     dealer = get_dealer(dealer_raw)
+    base.dealer = dealer
     hands = [x.strip() for x in hand_raw.split(' ')]
     assert len(hands) == 4, \
         f"Expected four hands in PBN string, got {len(hands)} instead."
     assert [len(x) for x in hands] == [16, 16, 16, 16], \
         f"Expected each hand to be of length 16 (13 cards and 3 dots.) Got {[len(x) for x in hands]} instead."
-    pprint(hands)
+    hands, dealer = rotate_hands(hands, dealer)
+    base.dealer = dealer
+    base.hands = hands
+    return base
 
 
 def process_raw_input(raw_input: string) -> (string, string):
@@ -48,3 +57,36 @@ def get_dealer(dealer_raw: string) -> string:
     assert this_dealer in ["N", "E", "S", "W"], \
         f"Expected dealer to be in ['N', 'E', 'S', 'W'], got {this_dealer} instead"
     return this_dealer
+
+
+def rotate_hands(hands, dealer):
+    """Rotates the raw input PBN hands to make the first hand 'N'
+    @param hands: list
+    @param dealer: string
+    @return:
+
+    """
+    rotate = 0
+    if dealer == 'E':
+        rotate = 1
+    elif dealer == 'S':
+        rotate = 2
+    elif dealer == 'W':
+        rotate = 3
+    rotated_hands = {}
+    for i in range(0, 4):
+        rotated_hands[i] = hands[(i + rotate) % 4]
+    hands_as_object = types.SimpleNamespace()  # Object
+    north = rotated_hands[0].split('.')
+    hands_as_object.north = types.SimpleNamespace(
+        spades=north[0], hearts=north[1], diamonds=north[2], clubs=north[3])
+    east = rotated_hands[1].split('.')
+    hands_as_object.east = types.SimpleNamespace(
+        spades=east[0], hearts=east[1], diamonds=east[2], clubs=east[3])
+    south = rotated_hands[2].split('.')
+    hands_as_object.south = types.SimpleNamespace(
+        spades=south[0], hearts=south[1], diamonds=south[2], clubs=south[3])
+    west = rotated_hands[3].split('.')
+    hands_as_object.west = types.SimpleNamespace(
+        spades=west[0], hearts=west[1], diamonds=west[2], clubs=west[3])
+    return hands_as_object, 'N'

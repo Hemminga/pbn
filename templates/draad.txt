@@ -1,0 +1,39 @@
+{# templates/draad.txt #}
+<table>
+    <tr>
+        <td colspan="2">Spel 14</td><td>&spades;</td><td>{{ hands.north.spades }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">O/NZ</td><td><span style="color: red;">&hearts;</span></td><td>{{ hands.north.hearts }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td><td><span style="color: red;">&diams;</span></td><td>{{ hands.north.diamonds }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td><td>&clubs;</td><td>{{ hands.north.clubs }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>&spades;</td><td>{{ hands.west.spades }}</td><td colspan="2"></td><td>&spades;</td><td>{{hands.east.spades }}</td>
+    </tr>
+    <tr>
+        <td><span style="color: red;">&hearts;</span></td><td>{{ hands.west.hearts }}</td><td colspan="2"></td><td><span style="color: red;">&hearts;</span></td><td>{{ hands.east.hearts }}</td>
+    </tr>
+    <tr>
+        <td><span style="color: red;">&diams;</span></td><td>{{ hands.west.diamonds }}</td><td colspan="2"></td><td><span style="color: red;">&diams;</span></td><td>{{ hands.east.diamonds }}</td>
+    </tr>
+    <tr>
+        <td>&clubs;</td><td>{{ hands.west.clubs }}</td><td colspan="2"></td><td>&clubs;</td><td>{{ hands.east.clubs }}</td>
+    </tr>
+        <tr>
+        <td colspan="2"></td><td>&spades;</td><td>{{ hands.south.spades }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td><td><span style="color: red;">&hearts;</span></td><td>{{ hands.south.hearts }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td><td><span style="color: red;">&diams;</span></td><td>{{ hands.south.diamonds }}</td><td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td><td>&clubs;</td><td>{{ hands.south.clubs }}</td><td colspan="2"></td>
+    </tr>
+</table>
