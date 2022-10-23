@@ -16,8 +16,14 @@ def process_pbn_input(pbn: string):
         f"Expected four hands in PBN string, got {len(hands)} instead."
     assert [len(x) for x in hands] == [16, 16, 16, 16], \
         f"Expected each hand to be of length 16 (13 cards and 3 dots.) Got {[len(x) for x in hands]} instead."
-    hands, dealer = rotate_hands(hands, dealer)
+    # hands, dealer, rotated_pbn = rotate_hands(hands, dealer)
+    rotated_hands = rotate_hands(hands, dealer)
+    rotated_pbn = "N:" + ' '.join([rotated_hands[x] for x in range(0, 4)])
     base.dealer = dealer
+    pbn_english, pbn_dutch = translate_pbn(rotated_pbn)
+    base.pbn = pbn_english
+    base.pbn_dutch = pbn_dutch
+    hands = convert_into_hands(pbn_dutch)
     base.hands = hands
     return base
 
@@ -76,17 +82,41 @@ def rotate_hands(hands, dealer):
     rotated_hands = {}
     for i in range(0, 4):
         rotated_hands[i] = hands[(i + rotate) % 4]
+    return rotated_hands
+
+
+def convert_into_hands(rotated_pbn):
+    bare_pbn = rotated_pbn[2:]
+    hands = [x.strip() for x in bare_pbn.split(' ')]
     hands_as_object = types.SimpleNamespace()  # Object
-    north = rotated_hands[0].split('.')
+    north = hands[0].split('.')
     hands_as_object.north = types.SimpleNamespace(
         spades=north[0], hearts=north[1], diamonds=north[2], clubs=north[3])
-    east = rotated_hands[1].split('.')
+    east = hands[1].split('.')
     hands_as_object.east = types.SimpleNamespace(
         spades=east[0], hearts=east[1], diamonds=east[2], clubs=east[3])
-    south = rotated_hands[2].split('.')
+    south = hands[2].split('.')
     hands_as_object.south = types.SimpleNamespace(
         spades=south[0], hearts=south[1], diamonds=south[2], clubs=south[3])
-    west = rotated_hands[3].split('.')
+    west = hands[3].split('.')
     hands_as_object.west = types.SimpleNamespace(
         spades=west[0], hearts=west[1], diamonds=west[2], clubs=west[3])
-    return hands_as_object, 'N'
+    return hands_as_object
+
+
+def translate_pbn(hand_raw):
+    # From Dutch to English
+    pbn_english = hand_raw
+    pbn_dutch = hand_raw
+    replacements = {
+        'H': 'K',
+        'V': 'Q',
+        'B': 'J',
+        'O': 'E',
+        'Z': 'S'
+    }
+    for dutch, english in replacements.items():
+        pbn_english = pbn_english.replace(dutch, english)
+        pbn_dutch = pbn_dutch.replace(english, dutch)
+    print(f"pbn_dutch: {pbn_dutch}")
+    return pbn_english, pbn_dutch
