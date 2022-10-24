@@ -18,7 +18,7 @@ if __name__ == '__main__':
         autoescape=select_autoescape()
     )
     template = environment.get_template("draad.txt")
-    content = template.render(hands=data.hands)
+    content = template.render(hands=data.hands, pbn=data.pbn)
     date = datetime.date.today()
     print(date)
     filename = f'{date}_draad.html'
