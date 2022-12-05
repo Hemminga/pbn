@@ -37,4 +37,4 @@
         <td colspan="2"></td><td>&clubs;</td><td>{{ hands.south.clubs }}</td><td colspan="2"></td>
     </tr>
 </table>
-<p>PBN: <pre>{{ pbn }}</pre></p>
+<p>PBN: <code>{{ pbn }}</code></p>
