@@ -35,6 +35,7 @@ def process_raw_input(raw_input: string) -> (string, string):
     :rtype: tuple
     :param raw_input:
     :return: """
+    raw_input = raw_input.upper()
     dealer_raw = raw_input[:2]
     print(f"dealer_raw: {dealer_raw}")
     assert raw_input[1] == ':' and raw_input[0].upper() in ["N", "E", "S", "W", "O", "Z"], \
