@@ -1,0 +1,10 @@
+{# templates/uitslag.txt #}
+<table>
+    <tr>
+        <th>#</th><th>naam</th><th>gemiddelde</th><th>&nbsp;</th>{% for i in zittingen %}<th>zitting {{ i }}</th>{% endfor %}
+    </tr>
+{% for result in results %}
+    <tr>
+        <td>{{ result['rank'] }}</td><td>{{ result['naam'] }}</td><td>{{ "%.2f"|format(result['percentage']) }} %</td><td>&nbsp;</td>{% for j in result['reported'] %}<td>{{ j }} %</td>{% endfor %}{% endfor %}
+    </tr>
+</table>
